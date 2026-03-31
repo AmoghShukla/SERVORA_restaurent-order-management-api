@@ -1,11 +1,9 @@
-from sqlalchemy import create_engine, sessionmaker
-from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
 import os
-from src.config.config import Settings
+from src.config.config import settings
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
 def get_db():

@@ -1,5 +1,8 @@
-from utils.loggers import logger
-from typing import Session
+from src.utils.loggers import get_logger
+from sqlalchemy.orm import Session
+
+
+logger = get_logger(__name__)
 
 def create_order(payload, db: Session):
     try:
