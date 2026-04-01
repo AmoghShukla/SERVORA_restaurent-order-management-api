@@ -7,3 +7,5 @@ class Menu_Class(Base):
 
     cuisine_id = Column(Integer, nullable=False, primary_key=True)
     cuisine_name = Column(String, nullable=False)
+
+    
