@@ -12,5 +12,7 @@ class Order_Class(Base):
 
     user = relationship('User_Class', back_populates="orders")
     items = relationship('Items_Class', back_populates="orders")
+    cart = relationship('Cart_Class', secondary='Cart_Table',back_populates="items")
     
     user_id = Column(Integer, ForeignKey('User_Table.user_id'))
+    

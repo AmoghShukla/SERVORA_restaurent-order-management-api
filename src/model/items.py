@@ -12,3 +12,4 @@ class Items_Class(Base):
     item_availability = Column(Boolean, nullable=False)
 
     orders = relationship('Orders_Class', back_populates="items")
+    cart = relationship('Cart_Class', secondary='Cart_Table',back_populates="items")
