@@ -15,5 +15,5 @@ def create_order(payload : OrderCreate, db: Session = Depends(get_db), user = De
     try:
         return service_create_order(payload, db, user)
     except Exception as e:
-        logger.error(f"Error creating order: {e}")
+        logger.error(f"Error creating order: {e} ")
         raise HTTPException(status_code=500, detail=str(e))
