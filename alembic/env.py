@@ -10,9 +10,9 @@ from src.model.user import User_Class
 from src.model.menu import Menu_Class
 from src.model.restaurent import Restaurent_Class
 from src.model.items import Items_Class
-from src.model.user import User_Class
+from src.model.OrderItems import OrderItems_Class
 
-from core.config import settings
+from src.core.config import settings
 
 from alembic import context
 

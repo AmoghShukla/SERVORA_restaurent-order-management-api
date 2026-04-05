@@ -3,31 +3,43 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from src.model.items import Items_Class
 from src.model.order import Order_Class
+from src.model.OrderItems import OrderItems_Class
 
 logger = get_logger(__name__)
 
-def create_order(payload, db: Session, user):
-    try:
-        data = payload.model_dump()
-        item = db.query(Items_Class).filter(Items_Class.item_id == data["item_id"]).first()
+def create_order(db: Session, user_id: int):
+    order = Order_Class(
+        user_id=user_id,
+        order_status="PENDING",
+        payment_status="UNPAID",
+        total_amount=0
+    )
+    db.add(order)
+    db.commit()
+    db.refresh(order)
+    return order
 
-        if not item:
-            raise HTTPException(status_code=404, detail="Item not found")
+def add_order_items(db : Session, order_id : int, items : list):
+    order_items = []
 
-        total_amount = item.item_price * data["quantity"]
-
-        new_order = Order_Class(
-            user_id=getattr(user, "user_id", None),
-            total_amount=total_amount,
-            order_status="PENDING",
-            payment_status="UNPAID"
+    for item in items:
+        order_item = OrderItems_Class(
+            order_id=order_id,
+            item_id=item["item_id"],
+            item_quantity=item["quantity"],
+            price=item["price"]
         )
-        logger.info(f"Creating order with payload: {payload}")
-        db.add(new_order)
-        db.commit()
-        db.refresh(new_order)
-        logger.info(f"Order created successfully: {new_order}")
-        return new_order
-    except Exception as e:
-        logger.error(f"Error creating order: {e}")
-        raise Exception(f"Error creating order: {e}")
+        db.add(order_item)
+        order_items.append(order_item)
+    
+    db.commit()
+    return order_items
+
+def update_order_total(db : Session, order, total):
+    order.total_amount = total
+    db.commit()
+    db.refresh(order)
+    return order
+
+def get_orders_by_user(db: Session, user_id : int):
+    return db.query(Order_Class).filter(Order_Class.user_id == user_id).all()

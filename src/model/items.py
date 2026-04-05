@@ -12,5 +12,5 @@ class Items_Class(Base):
     item_rating = Column(Integer, nullable=False)
     item_availability = Column(Boolean, nullable=False)
 
-    orders = relationship('Order_Class', secondary='Cart_Table', back_populates="items")
-    cart_entries = relationship('Cart_Class', back_populates="item")
+    orders = relationship('Order_Class', secondary='OrderItems_Table', back_populates="items", viewonly=True)
+    order_items = relationship('OrderItems_Class', back_populates="item")

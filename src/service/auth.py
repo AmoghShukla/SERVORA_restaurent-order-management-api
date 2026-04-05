@@ -11,13 +11,13 @@ def SignUp(payload, db : Session):
     if existing:
         raise ServiceError(status_code=400, detail="User Already Exists!!")
     
-    hashed_password = hash_password(payload.password)
+    hashed_password = hash_password(payload.user_password)
 
     user = User_Class(
         user_name = payload.user_name,
         user_phone = payload.user_phone,
         user_email = payload.user_email,
-        user_password=payload.user_password
+        user_password=hashed_password
     )
 
     return create_user(user, db)
