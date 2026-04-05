@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from src.schema.order_schema import OrderCreate, OrderResponse  
 from src.database.session import get_db
 from src.service.order_service import service_create_order
-from src.utils.loggers import get_logger
+from src.middleware.loggers import get_logger
 from src.utils.temp import get_current_user
 
 logger = get_logger(__name__)

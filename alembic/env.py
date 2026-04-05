@@ -12,7 +12,7 @@ from src.model.restaurent import Restaurent_Class
 from src.model.items import Items_Class
 from src.model.user import User_Class
 
-from src.config.config import settings
+from core.config import settings
 
 from alembic import context
 

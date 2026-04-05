@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.utils.loggers import get_logger
+from src.middleware.loggers import get_logger
 from src.repository import order_repository
 
 logger = get_logger(__name__)

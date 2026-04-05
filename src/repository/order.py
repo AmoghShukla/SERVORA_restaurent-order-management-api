@@ -1,4 +1,4 @@
-from src.utils.loggers import get_logger
+from src.middleware.loggers import get_logger
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from src.model.items import Items_Class
