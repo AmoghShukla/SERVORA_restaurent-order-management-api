@@ -3,7 +3,7 @@ from src.routers.order_routers import router as orderrouter
 from src.database.base import Base
 from src.database.session import engine
 from src.routers.login_routers import router as loginrouter
-from src.routers.user_routers import router as userrouter
+from src.routers.user import router as userrouter
 
 
 app = FastAPI(title="Zwigato")
