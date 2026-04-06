@@ -7,9 +7,9 @@ class Menu_Class(Base):
 
     cuisine_id = Column(Integer, nullable=False, primary_key=True)
     cuisine_name = Column(String, nullable=False)
+    restaurent_id = Column(Integer, ForeignKey("Restaurent_Table.Restaurent_id"), nullable=False, index=True)
 
     restaurent = relationship("Restaurent_Class", back_populates="menu")
-    
-    restaurent_id = Column(Integer, ForeignKey("Restaurent_Table.Restaurent_id"))
+    items = relationship("Items_Class", back_populates="menu", cascade="all, delete-orphan")
 
     

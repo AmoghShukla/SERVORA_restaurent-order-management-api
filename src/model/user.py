@@ -22,3 +22,4 @@ class User_Class(Base):
     created_at = Column(DateTime, default=datetime.now())
 
     orders = relationship("Order_Class", back_populates="user")
+    owned_restaurents = relationship("Restaurent_Class", back_populates="owner")

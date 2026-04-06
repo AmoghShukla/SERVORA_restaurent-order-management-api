@@ -8,7 +8,13 @@ class OrderItemCreate(BaseModel):
 
 
 class OrderCreate(BaseModel):
+    restaurent_id: int = Field(..., ge=1)
     items: List[OrderItemCreate]   
+    address: str = Field(..., min_length=1)
+
+
+class OrderFromCartCreate(BaseModel):
+    restaurent_id: int = Field(..., ge=1)
     address: str = Field(..., min_length=1)
 
 class OrderItemResponse(BaseModel):
@@ -22,7 +28,8 @@ class OrderItemResponse(BaseModel):
 
 class OrderResponse(BaseModel):
     order_id: int
-    total_price: float
+    restaurent_id: int
+    total_amount: float
     order_status: str
     address: str
     items: List[OrderItemResponse]

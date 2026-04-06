@@ -8,12 +8,15 @@ class Order_Class(Base):
 
     order_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey('User_Table.user_id'))
+    restaurent_id = Column(Integer, ForeignKey('Restaurent_Table.Restaurent_id'), nullable=False, index=True)
+    address = Column(String, nullable=False)
     order_status = Column(String)
     payment_status = Column(String)
     total_amount = Column(Integer, nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.now)
 
     user = relationship('User_Class', back_populates="orders")
+    restaurent = relationship('Restaurent_Class')
     items = relationship('Items_Class', secondary='OrderItems_Table', back_populates="orders", viewonly=True)
     order_items = relationship('OrderItems_Class', back_populates="order")
     
