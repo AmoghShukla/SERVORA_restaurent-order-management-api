@@ -14,6 +14,8 @@ def hash_password(password : str):
     the password is hashed into something gibberish based on the context and it is non reversable
     also it will be different everytime. 
     '''
+    if len(password.encode('utf-8')) > 72:
+        raise ValueError("Password too long  (max 72 bytes)") 
     return password_context.hash(password)
 
 def verify_password(plain_password : str, hashed_password : str):

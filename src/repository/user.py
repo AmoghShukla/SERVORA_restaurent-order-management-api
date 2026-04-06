@@ -7,13 +7,11 @@ from pydantic import EmailStr
 
 logger = get_logger(__name__)
 
-def get_user_by_email(email : EmailStr, db : Session):
+def get_user_by_email(email: EmailStr, db: Session):
     try:
-        user = db.query(User_Class).filter(User_Class.user_email==email).first()
-        if not user:
-            raise NotFoundError(f"Task with Email ID : {email}, Does not exist")
+        return db.query(User_Class).filter(User_Class.user_email == email).first()
     except SQLAlchemyError as e:
-        raise RepositoryError("Failed to Fetch User with Email : {email}") from e
+        raise RepositoryError(f"Failed to fetch user with email: {email}") from e
 
 def create_user(payload, db : Session):
     try:
@@ -28,7 +26,7 @@ def create_user(payload, db : Session):
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        logger.info(f"Order created successfully: {new_user}")
+        logger.info(f"User created successfully: {new_user}")
         return new_user
     except SQLAlchemyError as e:
         db.rollback()

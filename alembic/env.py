@@ -12,6 +12,11 @@ from src.model.restaurent import Restaurent_Class
 from src.model.items import Items_Class
 from src.model.OrderItems import OrderItems_Class
 
+from src.routers.auth import router as auth_router
+from src.routers.order import router as order_router
+from src.routers.restaurent import router as restaurent_router
+from src.routers.user import router as user_router
+
 from src.core.config import settings
 
 from alembic import context

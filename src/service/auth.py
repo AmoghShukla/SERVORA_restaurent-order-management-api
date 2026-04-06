@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.exceptions.custom_exception import ServiceError
+from src.exceptions.custom_exception import ServiceError, AlreadyExistsError
 
 from src.repository.user import get_user_by_email, create_user
 from src.model.user import User_Class
@@ -9,7 +9,7 @@ def SignUp(payload, db : Session):
     existing = get_user_by_email(payload.user_email, db)
 
     if existing:
-        raise ServiceError(status_code=400, detail="User Already Exists!!")
+        raise AlreadyExistsError(status_code=400, detail="User Already Exists!!")
     
     hashed_password = hash_password(payload.user_password)
 

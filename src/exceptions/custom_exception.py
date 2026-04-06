@@ -6,3 +6,6 @@ class ServiceError(Exception):
 
 class NotFoundError(RepositoryError):
     pass
+
+class AlreadyExistsError(ServiceError):
+    pass

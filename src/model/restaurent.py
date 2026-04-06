@@ -1,6 +1,7 @@
 from sqlalchemy import Integer, String, Column
 from sqlalchemy.orm import relationship
 from src.database.base import Base
+from src.model.menu import Menu_Class
 
 class Restaurent_Class(Base):
     __tablename__="Restaurent_Table"

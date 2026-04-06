@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from src.middleware.loggers import get_logger
-from repository import user
+from src.repository import user
 from src.exceptions.custom_exception import ServiceError, RepositoryError
 from pydantic import EmailStr
 
