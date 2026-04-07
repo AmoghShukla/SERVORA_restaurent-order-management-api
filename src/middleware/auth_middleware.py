@@ -11,9 +11,7 @@ class TokenRefreshMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
         
-        # Check if a new access token was generated during the request
         if hasattr(request.state, 'new_access_token'):
-            # Add the new access token to response headers
             response.headers["New-Access-Token"] = request.state.new_access_token
         
         return response

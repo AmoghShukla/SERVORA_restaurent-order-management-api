@@ -60,10 +60,11 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_
         raise HTTPException(status_code=401, detail="Invalid or expired token. Provide a valid refresh token in Refresh Token header.")
 
 
-def require_role(roles: list):
+def require_role(roles: list[str]):
+    roles = {r.upper() for r in roles}
     def role_checker(user=Depends(get_current_user)):
-        all_roles = [r.upper() for r in roles]
-        if str(user['role']).upper() not in all_roles:
+        if user["role"].upper() not in roles:
             raise HTTPException(status_code=403, detail="Forbidden")
         return user
+
     return role_checker
