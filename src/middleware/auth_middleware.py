@@ -4,10 +4,6 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 
 class TokenRefreshMiddleware(BaseHTTPMiddleware):
-    """
-    Middleware that automatically includes a new access token in response headers
-    when the authentication dependency has refreshed an expired token.
-    """
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
         
