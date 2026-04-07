@@ -10,7 +10,7 @@ bearer_scheme = HTTPBearer(auto_error=True)
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme), request: Request = None):
     '''
     Authenticate user from access token in Authorization header.
-    If access token is expired, attempts to use refresh token from X-Refresh-Token header
+    If access token is expired, attempts to use refresh token from Refresh Token header
     to automatically get a new access token without failing the request.
     '''
     try:
@@ -31,9 +31,9 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_
             "role": role
         }
     except JWTError as e:
-        # Check if token is expired and if refresh token is provided
+
         if request:
-            refresh_token = request.headers.get("X-Refresh-Token")
+            refresh_token = request.headers.get("Refresh Token")
             if refresh_token:
                 try:
                     refresh_payload = verify_refresh_token(refresh_token)
@@ -42,13 +42,11 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_
                     role = refresh_payload.get("role")
                     
                     if user_id and role:
-                        # Create a new access token
                         new_access_token = create_access_token({
                             'sub': user_id,
                             'role': role
                         })
                         
-                        # Store new token in request state so endpoints can return it
                         request.state.new_access_token = new_access_token
                         
                         return {
@@ -57,9 +55,9 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer_
                             "new_access_token": new_access_token
                         }
                 except JWTError:
-                    pass  # Refresh token also invalid, fall through to error
+                    pass  
         
-        raise HTTPException(status_code=401, detail="Invalid or expired token. Provide a valid refresh token in X-Refresh-Token header.")
+        raise HTTPException(status_code=401, detail="Invalid or expired token. Provide a valid refresh token in Refresh Token header.")
 
 
 def require_role(roles: list):
