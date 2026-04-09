@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2AuthorizationCodeBearer
 
 from src.core.security import SECRET_KEY, ALGORITHM, create_access_token, verify_refresh_token
 
-oauth2scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 def get_current_user(token: OAuth2AuthorizationCodeBearer = Depends(oauth2scheme), request: Request = None):
     '''
